@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+Bài 3: Viết chương trình nhập vào năm sinh của một người và in ra tuổi của người đó theo can chi<br>
+Ví dụ: 1984 in ra Giáp Tý (30đ)
+<br><br>
+Nhập số năm sinh: <input type="number" id="year">
+<br><br>
+<button onclick="tinh()">Tính</button>
+<br><br>
+<p id="result"></p>
+
+<script>
+    function tinh() {
+        let year = +document.getElementById('year').value;
+        let can = ''
+        let chi = ''
+        switch (year % 10) {
+            case 0:
+                can = 'CANH';
+                break;
+            case 1:
+                can = 'TÂN';
+                break;
+            case 2:
+                can = 'NHÂM';
+                break;
+            case 3:
+                can = 'QUÝ';
+                break;
+            case 4:
+                can = 'GIÁP';
+                break;
+            case 5:
+                can = 'ẤT';
+                break;
+            case 6:
+                can = 'BÍNH';
+                break;
+            case 7:
+                can = 'ĐINH';
+                break;
+            case 8:
+                can = 'MẬU';
+                break;
+            case 9:
+                can = 'KỶ';
+        }
+        switch (year % 12) {
+            case 0:
+                chi = 'Thân';
+                break;
+            case 1:
+                chi = 'Dậu';
+                break;
+            case 2:
+                chi = 'Tuất';
+                break;
+            case 3:
+                chi = 'Hợi';
+                break;
+            case 4:
+                chi = 'Tý';
+                break;
+            case 5:
+                chi = 'Sửu';
+                break;
+            case 6:
+                chi = 'Dần';
+                break;
+            case 7:
+                chi = 'Mão';
+                break;
+            case 8:
+                chi = 'Thìn';
+                break;
+            case 9:
+                chi = 'Tỵ';
+                break;
+            case 10:
+                chi = 'Ngọ';
+                break;
+            case 11:
+                chi = 'Mùi';
+                break;
+        }
+
+        document.getElementById('result').innerText = can + ' ' + chi;
+
+    }
+
+</script>
+
+</body>
+</html>

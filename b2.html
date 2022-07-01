@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        input {
+            position: absolute;
+            left: 70px;
+            width: 40px;
+        }
+    </style>
+</head>
+<body>
+
+Bài 2: Viết chương trình nhập vào 3 cạnh của 1 tam giác.<br>
+Kiểm tra xem tam giác đó có phải là tam giác vuông hay không (gợi ý: sử dụng định lý: Pytago) (10đ)
+
+<p>Nhập 3 cạnh của tam giác</p>
+
+Cạnh a: <input type="number" id="a" value=0><br><br>
+Cạnh b: <input type="number" id="b" value=0><br><br>
+Cạnh c: <input type="number" id="c" value=0><br><br>
+
+<button onclick="check()">Kiểm tra</button>
+
+<p id="result"></p>
+
+<script>
+
+    function check() {
+
+        let a = +document.getElementById('a').value;
+        let b = +document.getElementById('b').value;
+        let c = +document.getElementById('c').value;
+
+        if (a < 0 || b < 0 || c < 0)
+        {
+            document.getElementById('result').innerText = 'Cạnh của tam giác phải > 0';
+        }
+        else if ((a * a == b * b + c * c) || (b * b == c * c + a * a) || (c * c == a * a + b * b))
+        {
+            document.getElementById('result').innerText = 'Tam giác vuông';
+        }
+        else
+        {
+            document.getElementById('result').innerText = 'Tam giác thường';
+        }
+    }
+
+</script>
+
+</body>
+</html>
