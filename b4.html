@@ -7,8 +7,8 @@
 </head>
 <body>
 
-<img id="dung" src="img/dung.png" style="position: absolute; left: 0; top: 0; width: 200px; height: 200px">
-<img id="diep" src="img/diep.png" style="position: absolute; left: 500px; top: 0px; width: 200px; height: 200px">
+<img id="dung" src="dung.png" style="position: absolute; left: 0; top: 0; width: 200px; height: 200px">
+<img id="diep" src="diep.png" style="position: absolute; left: 500px; top: 0px; width: 200px; height: 200px">
 
 <script>
 
@@ -22,6 +22,13 @@
     let isLeft = false;
     let isUp = false;
     let isDown = false;
+
+    let dungSpeed = 3;
+    let diepSpeed = 3;
+
+    let moving = true;
+
+    let fps = 60;
 
     document.addEventListener('keydown', function (e) {
         switch (e.keyCode) {
@@ -58,19 +65,19 @@
     })
 
     function moveLeft() {
-        dungImg.style.left = parseInt(dungImg.style.left) - 10 + 'px';
+        dungImg.style.left = parseInt(dungImg.style.left) - 5 * dungSpeed + 'px';
     }
 
     function moveRight() {
-        dungImg.style.left = parseInt(dungImg.style.left) + 10 + 'px';
+        dungImg.style.left = parseInt(dungImg.style.left) + 5 * dungSpeed + 'px';
     }
 
     function moveUp() {
-        dungImg.style.top = parseInt(dungImg.style.top) - 10 + 'px';
+        dungImg.style.top = parseInt(dungImg.style.top) - 5 * dungSpeed + 'px';
     }
 
     function moveDown() {
-        dungImg.style.top = parseInt(dungImg.style.top) + 10 + 'px';
+        dungImg.style.top = parseInt(dungImg.style.top) + 5 * dungSpeed + 'px';
     }
 
     function meet() {
@@ -78,50 +85,49 @@
         alert('Anh dung day tu chieu');
     }
 
-    let moving = true;
-
     function repeat() {
+        setTimeout(function () {
+            let dungX = parseInt(dungImg.style.left);
+            let dungY = parseInt(dungImg.style.top);
+            let diepX = parseInt(diepImg.style.left);
+            let diepY = parseInt(diepImg.style.top);
 
-        let dungX = parseInt(dungImg.style.left);
-        let dungY = parseInt(dungImg.style.top);
-        let diepX = parseInt(diepImg.style.left);
-        let diepY = parseInt(diepImg.style.top);
+            let dungH = dungX + parseInt(dungImg.style.width);
+            let dungV = dungY + parseInt(dungImg.style.height);
+            let diepH = diepX + parseInt(diepImg.style.width);
+            let diepV = diepY + parseInt(diepImg.style.height);
 
-        let dungH = dungX + parseInt(dungImg.style.width);
-        let dungV = dungY + parseInt(dungImg.style.height);
-        let diepH = diepX + parseInt(diepImg.style.width);
-        let diepV = diepY + parseInt(diepImg.style.height);
+            let isMeetX = dungH >= diepX && diepH >= dungX;
+            let isMeetY = dungV >= diepY && diepV >= dungY;
 
-        let isMeetX = dungH >= diepX && diepH >= dungX;
-        let isMeetY = dungV >= diepY && diepV >= dungY;
-
-        if (isMeetX && isMeetY) {
-            meet();
-            dungImg.style.left = '0px';
-            dungImg.style.top = '0px';
-            isRight = false;
-            isLeft = false;
-            isUp = false;
-            isDown = false;
-        } else {
-            if(isRight) moveRight();
-            if(isLeft) moveLeft();
-            if(isUp) moveUp();
-            if(isDown) moveDown();
-        }
-
-        if (moving) {
-            diepImg.style.top = parseInt(diepImg.style.top) + 10 + 'px'
-            if (parseInt(diepImg.style.top) > window.innerHeight - parseInt(diepImg.style.width)) {
-                moving = false;
+            if (isMeetX && isMeetY) {
+                meet();
+                dungImg.style.left = '0px';
+                dungImg.style.top = '0px';
+                isRight = false;
+                isLeft = false;
+                isUp = false;
+                isDown = false;
+            } else {
+                if (isRight) moveRight();
+                if (isLeft) moveLeft();
+                if (isUp) moveUp();
+                if (isDown) moveDown();
             }
-        } else {
-            diepImg.style.top = parseInt(diepImg.style.top) - 10 + 'px'
-            if (parseInt(diepImg.style.top) < 0) {
-                moving = true;
+
+            if (moving) {
+                diepImg.style.top = parseInt(diepImg.style.top) + 5 * diepSpeed + 'px'
+                if (parseInt(diepImg.style.top) > window.innerHeight - parseInt(diepImg.style.width)) {
+                    moving = false;
+                }
+            } else {
+                diepImg.style.top = parseInt(diepImg.style.top) - 5 * diepSpeed + 'px'
+                if (parseInt(diepImg.style.top) < 0) {
+                    moving = true;
+                }
             }
-        }
-        requestAnimationFrame(repeat);
+            requestAnimationFrame(repeat);
+        }, 1000 / fps)
     }
 
     requestAnimationFrame(repeat);
