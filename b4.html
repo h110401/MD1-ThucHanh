@@ -15,8 +15,8 @@
     let dungImg = document.getElementById('dung');
     let diepImg = document.getElementById('diep');
 
-    isMeetX = false;
-    isMeetY = false;
+    let isMeetX = false;
+    let isMeetY = false;
 
     let isRight = false;
     let isLeft = false;
@@ -102,8 +102,10 @@
 
             if (isMeetX && isMeetY) {
                 meet();
+
                 dungImg.style.left = '0px';
                 dungImg.style.top = '0px';
+
                 isRight = false;
                 isLeft = false;
                 isUp = false;
